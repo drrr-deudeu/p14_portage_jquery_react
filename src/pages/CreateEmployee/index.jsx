@@ -3,7 +3,7 @@ import Select from "react-select"
 import { useContext } from "react"
 import { Link } from "react-router-dom"
 import { DataContext } from "../../utils/dataContext"
-// import DatePicker from "react-datepicker"
+import DatePicker from "react-datepicker"
 import { states, options } from "../../datas/employees"
 import "react-datepicker/dist/react-datepicker.css"
 
@@ -12,18 +12,21 @@ export default function CreateEmployee() {
   const saveEmployee = (e) => {
     e.preventDefault()
     addEmployee(form)
+    console.log(form)
   }
   const [form, setForm] = useState({
     firstName: "User1",
     lastName: "Test1",
     dateOfBirth: "09/08/2022",
-    startDate: "01/20/2010",
+    startDate: "",
     department: "Engineering",
     street: "45 rue de l'utilisateur",
     city: "New City",
     state: "AL",
     zipCode: "34567",
   })
+  const [startDate, setStartDate] = useState(new Date())
+  const [birthDate, setBirthDate] = useState(new Date())
   const onChangeInput = (e) => {
     e.preventDefault()
     setForm({ ...form, [e.target.id]: e.target.value })
@@ -35,6 +38,21 @@ export default function CreateEmployee() {
     setForm({ ...form, state: v.value })
   }
 
+  const changeDate = (date, dateField) => {
+    setForm({
+      ...form,
+      [dateField]:
+        date.getDate().toLocaleString(undefined, {
+          minimumIntegerDigits: 2,
+        }) +
+        "/" +
+        (date.getMonth() + 1).toLocaleString(undefined, {
+          minimumIntegerDigits: 2,
+        }) +
+        "/" +
+        date.getFullYear(),
+    })
+  }
   return (
     <>
       <div className='title'>
@@ -58,24 +76,31 @@ export default function CreateEmployee() {
             value={form.lastName}
             onChange={(e) => onChangeInput(e)}
           />
-          <label htmlFor='date-of-birth'>Date of Birth</label>
-          <input
+          <label htmlFor='dateOfBirth'>Date of Birth</label>
+          <DatePicker
             id='dateOfBirth'
-            type='text'
-            //value={form.dateOfBirth}
-            onChange={(e) => onChangeInput(e)}
+            selected={birthDate}
+            showYearDropdown
+            dropdownMode='select'
+            yearItemNumber={9}
+            dateFormat='dd/MM/yyyy'
+            onChange={(date) => {
+              setBirthDate(date)
+              changeDate(date, "dateOfBirth")
+            }}
           />
           <label htmlFor='start-date'>Start Date</label>
-          {/* <DatePicker
+          <DatePicker
             id='startDate'
-            selected={form.startDate}
-            onChange={(date) => setForm({ ...form, startDate: "01/20/2010" })}
-          /> */}
-          <input
-            id='startDate'
-            type='text'
-            value={form.startDate}
-            onChange={(e) => onChangeInput(e)}
+            selected={startDate}
+            showYearDropdown
+            dropdownMode='select'
+            yearItemNumber={9}
+            dateFormat='dd/MM/yyyy'
+            onChange={(date) => {
+              setStartDate(date)
+              changeDate(date, "startDate")
+            }}
           />
           <fieldset className='address'>
             <legend>Address</legend>
