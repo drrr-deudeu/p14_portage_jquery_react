@@ -1,4 +1,4 @@
-export const employees_datas = [
+export const employees_datas = () => [
   {
     firstName: "User1",
     lastName: "Test1",

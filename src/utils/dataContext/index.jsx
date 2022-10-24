@@ -1,4 +1,4 @@
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 // import { employees_datas } from "../../datas/employees"
 import { employees_datas, columns } from "../../datas/datas"
 
@@ -13,13 +13,15 @@ export const DataContext = createContext()
  * @param {JSX.Element} param0
  */
 export const DataProvider = ({ children }) => {
-  const [employeesList, setEmployeesList] = useState(employees_datas)
-  // console.log(JSON.stringify(employees_datas))
+  const getEmployees_datas = () => employees_datas
+  const [employeesList, setEmployeesList] = useState(getEmployees_datas())
+  //f (employees_datas) console.log(JSON.stringify(employees_datas))
 
   const addEmployee = (employee) => {
     setEmployeesList((employeesList) => [...employeesList, employee])
   }
 
+  useEffect(() => {}, [employeesList.length])
   return (
     <DataContext.Provider value={{ employeesList, addEmployee, columns }}>
       {children}
