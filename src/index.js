@@ -7,6 +7,7 @@ import EmployeesList from "./pages/EmployeesList"
 import NotFound from "./pages/NotFound"
 import "./sass/main.scss"
 import { DataProvider } from "./utils/dataContext"
+import Footer from "./Components/Footer"
 const root = ReactDOM.createRoot(document.getElementById("root"))
 /**
  * The App's Routes
@@ -21,6 +22,7 @@ root.render(
           <Route path='*' element={<NotFound />}></Route>
         </Routes>
       </DataProvider>
+      <Footer />
     </BrowserRouter>
   </React.StrictMode>
 )

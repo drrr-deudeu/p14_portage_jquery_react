@@ -101,7 +101,7 @@ export default function CreateEmployee() {
                 changeDate(date, "dateOfBirth")
               }}
             />
-            <label htmlFor='start-date'>Start Date</label>
+            <label htmlFor='startDate'>Start Date</label>
             <DatePicker
               id='startDate'
               selected={startDate}
@@ -136,13 +136,14 @@ export default function CreateEmployee() {
               <label htmlFor='state'>State</label>
               <Select
                 name='state'
-                id='state'
+                inputId='state'
+                //id='state'
                 //value={form.state}
                 onChange={(e) => onChangeState(e)}
                 options={states}
               />
 
-              <label htmlFor='zip-code'>Zip Code</label>
+              <label htmlFor='zipCode'>Zip Code</label>
               <input
                 id='zipCode'
                 type='number'
@@ -153,7 +154,7 @@ export default function CreateEmployee() {
             <label htmlFor='department'>Department</label>
             <Select
               name='department'
-              id='department'
+              inputId='department'
               onChange={(e) => onChangeSelect(e)}
               options={options}
             />
